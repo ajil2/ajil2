@@ -34,7 +34,8 @@ def bfs(edge_array, start):
 def measure_bfs(edge_array):
     start_time = time.perf_counter()  # Алгоритмын эхлэх хугацааг хэмжинэ (секундээр)
     bfs(edge_array, 0)  # BFS алгоритмыг гүйцэтгэнэ
-    return time.perf_counter() - start_time  # Үргэлжлэх хугацааг секундээр буцаана
+    end_time = time.perf_counter()  # Алгоритмын дуусах хугацааг хэмжинэ
+    return end_time - start_time  # Үргэлжлэх хугацааг секундээр буцаана
 
 # (DFS Гүн замын хайлт) алгоритм
 def dfs(edge_array, current, visited):
@@ -53,7 +54,8 @@ def dfs(edge_array, current, visited):
 def measure_dfs(edge_array):
     start_time = time.perf_counter()  # Алгоритмын эхлэх хугацааг хэмжинэ (секундээр)
     dfs(edge_array, 0, [False] * VERTICES)  # DFS алгоритмыг гүйцэтгэнэ
-    return time.perf_counter() - start_time  # Үргэлжлэх хугацааг секундээр буцаана
+    end_time = time.perf_counter()  # Алгоритмын дуусах хугацааг хэмжинэ
+    return end_time - start_time  # Үргэлжлэх хугацааг секундээр буцаана
 
 # Захуудыг хэвлэх функц
 def print_edge_array(edge_array):
@@ -62,6 +64,8 @@ def print_edge_array(edge_array):
 
 # Гол програм
 if __name__ == "__main__":
+    overall_start_time = time.perf_counter()  # Бүх програмын эхлэх хугацааг хэмжинэ
+
     # Захуудын жагсаалтыг үүсгэх
     edge_array = []
 
@@ -79,3 +83,6 @@ if __name__ == "__main__":
     print("\nЦагын хэмжилтүүд:")  
     print(f"Дараалсан оройн хайлтын хугацаа: {measure_bfs(edge_array)} секунд")
     print(f"Гүн замын хайлтын хугацаа: {measure_dfs(edge_array)} секунд")
+
+    overall_end_time = time.perf_counter()  # Бүх програмын дуусах хугацааг хэмжинэ
+    print(f"\nПрограммын ажиллах хугацаа: {overall_end_time - overall_start_time} секунд")
