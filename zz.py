@@ -11,7 +11,7 @@ def has_edge(edge_array, source, target):
             return True  # Зах байвал үнэн утга буцаана
     return False  # Зах байхгүй бол худал утга буцаана
 
-# хайлт (BFS) алгоритм
+# хайлт (BFS Breadth-First Search) алгоритм
 def bfs(edge_array, start):
     visited = [False] * VERTICES  # Орой тус бүрийн visited төлөвийг хадгалах жагсаалт
     queue = deque([start])  # BFS-ийн дарааллыг эхлүүлнэ
@@ -36,7 +36,7 @@ def measure_bfs(edge_array):
     bfs(edge_array, 0)  # BFS алгоритмыг гүйцэтгэнэ
     return time.perf_counter_ns() - start_time  # Үргэлжлэх хугацааг буцаана
 
-# Гүнзгий хайлт (DFS) алгоритм
+# (DFS Depth-First Search) алгоритм
 def dfs(edge_array, current, visited):
     visited[current] = True  # Одоогийн оройг visited гэж тэмдэглэнэ
     for edge in edge_array:  # Бүх захыг шалгана
