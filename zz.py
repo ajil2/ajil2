@@ -13,7 +13,7 @@ def has_edge(edge_array, source, target):
 
 # хайлт (BFS Дараалсан оройн хайлт) алгоритм
 def bfs(edge_array, start):
-    visited = [False] * VERTICES  # Орой тус бүрийн visited төлөвийг хадгалах жагсаалт
+    visited = [False] * VERTICES  # Орой тус бүрийн холболтын төлөвийг хадгалах жагсаалт
     queue = deque([start])  # BFS-ийн дарааллыг эхлүүлнэ
     visited[start] = True  # Эхлэх оройг visit гэж тэмдэглэнэ
 
@@ -26,19 +26,19 @@ def bfs(edge_array, start):
             elif edge[1] == current:
                 neighbor = edge[0]
             
-            if neighbor != -1 and not visited[neighbor]:  # Хөрш оройг айлчлаагүй бол
+            if neighbor != -1 and not visited[neighbor]:  # Хөрш оройтой холбогдоогүй бол
                 queue.append(neighbor)  # Хөрш оройг дараалалд нэмнэ
-                visited[neighbor] = True  # Айлчлагдсан гэж тэмдэглэнэ
+                visited[neighbor] = True  # Холбогдсон гэж тэмдэглэнэ
 
 # BFS-ийн хугацааг хэмжих функц
 def measure_bfs(edge_array):
-    start_time = time.perf_counter_ns()  # Алгоритмын эхлэх хугацааг хэмжинэ
+    start_time = time.perf_counter()  # Алгоритмын эхлэх хугацааг хэмжинэ (секундээр)
     bfs(edge_array, 0)  # BFS алгоритмыг гүйцэтгэнэ
-    return time.perf_counter_ns() - start_time  # Үргэлжлэх хугацааг буцаана
+    return time.perf_counter() - start_time  # Үргэлжлэх хугацааг секундээр буцаана
 
 # (DFS Гүн замын хайлт) алгоритм
 def dfs(edge_array, current, visited):
-    visited[current] = True  # Одоогийн оройг visited гэж тэмдэглэнэ
+    visited[current] = True  # Одоогийн оройг холбогдсон гэж тэмдэглэнэ
     for edge in edge_array:  # Бүх захыг шалгана
         neighbor = -1  # Хөрш орой хадгалах хувьсагч
         if edge[0] == current:  # Одоогийн оройтой холбогдсон зах байвал
@@ -46,14 +46,14 @@ def dfs(edge_array, current, visited):
         elif edge[1] == current:
             neighbor = edge[0]
         
-        if neighbor != -1 and not visited[neighbor]:  # Хөрш орой visited биш бол
+        if neighbor != -1 and not visited[neighbor]:  # Хөрш оройтой холбогдоогүй бол
             dfs(edge_array, neighbor, visited)
 
 # DFS-ийн хугацааг хэмжих функц
 def measure_dfs(edge_array):
-    start_time = time.perf_counter_ns()  # Алгоритмын эхлэх хугацааг хэмжинэ
+    start_time = time.perf_counter()  # Алгоритмын эхлэх хугацааг хэмжинэ (секундээр)
     dfs(edge_array, 0, [False] * VERTICES)  # DFS алгоритмыг гүйцэтгэнэ
-    return time.perf_counter_ns() - start_time  # Үргэлжлэх хугацааг буцаана
+    return time.perf_counter() - start_time  # Үргэлжлэх хугацааг секундээр буцаана
 
 # Захуудыг хэвлэх функц
 def print_edge_array(edge_array):
@@ -69,12 +69,13 @@ if __name__ == "__main__":
     for i in range(VERTICES):  # Бүх оргилуудад зориулж
         degree = random.randint(1, 10)  # Орой тус бүрийн холболтын тоог санамсаргүйгээр үүсгэнэ
         for _ in range(degree):  # Холболтуудыг үүсгэнэ
-            neighbor = random.randint(0, VERTICES - 1)  # Санамсаргүй хөрш орой сонгоно
+            neighbor = random.randint(0, VERTICES - 1)  # Санамсаргүй холбогдсон орой сонгоно
             if i != neighbor and not has_edge(edge_array, i, neighbor):  # Өөртэйгөө холбогдохгүй ба давхардсан зах үүсгэхгүй
                 edge_array.append([i, neighbor])  # Шинэ зах нэмнэ
+                
     print("Массивт жагсаалт:") 
     print_edge_array(edge_array)
 
     print("\nЦагын хэмжилтүүд:")  
-    print(f"Дараалсан оройн хайлтын хугацаа): {measure_bfs(edge_array)}")
-    print(f"Гүн замын хайлтын хугацаа: {measure_dfs(edge_array)}") 
+    print(f"Дараалсан оройн хайлтын хугацаа: {measure_bfs(edge_array)} секунд")
+    print(f"Гүн замын хайлтын хугацаа: {measure_dfs(edge_array)} секунд")
