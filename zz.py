@@ -86,3 +86,4 @@ if __name__ == "__main__":
 
     overall_end_time = time.perf_counter()  # Бүх програмын дуусах хугацааг хэмжинэ
     print(f"\nПрограммын ажиллах хугацаа: {overall_end_time - overall_start_time} секунд")
+#14:40
