@@ -11,7 +11,7 @@ def has_edge(edge_array, source, target):
             return True  # Зах байвал үнэн утга буцаана
     return False  # Зах байхгүй бол худал утга буцаана
 
-# хайлт (BFS Breadth-First Search) алгоритм
+# хайлт (BFS Дараалсан оройн хайлт) алгоритм
 def bfs(edge_array, start):
     visited = [False] * VERTICES  # Орой тус бүрийн visited төлөвийг хадгалах жагсаалт
     queue = deque([start])  # BFS-ийн дарааллыг эхлүүлнэ
@@ -36,7 +36,7 @@ def measure_bfs(edge_array):
     bfs(edge_array, 0)  # BFS алгоритмыг гүйцэтгэнэ
     return time.perf_counter_ns() - start_time  # Үргэлжлэх хугацааг буцаана
 
-# (DFS Depth-First Search) алгоритм
+# (DFS Гүн замын хайлт) алгоритм
 def dfs(edge_array, current, visited):
     visited[current] = True  # Одоогийн оройг visited гэж тэмдэглэнэ
     for edge in edge_array:  # Бүх захыг шалгана
@@ -72,12 +72,9 @@ if __name__ == "__main__":
             neighbor = random.randint(0, VERTICES - 1)  # Санамсаргүй хөрш орой сонгоно
             if i != neighbor and not has_edge(edge_array, i, neighbor):  # Өөртэйгөө холбогдохгүй ба давхардсан зах үүсгэхгүй
                 edge_array.append([i, neighbor])  # Шинэ зах нэмнэ
-
-    # Графын бүтэцийг харах
-    print("Edge Array List:")  # Захуудын жагсаалтыг хэвлэнэ
+    print("Массивт жагсаалт:") 
     print_edge_array(edge_array)
 
-    # BFS ба DFS-ийн хугацааны хэмжилт
-    print("\nTime Measurements:")  # Хугацааны хэмжилтүүдийг хэвлэнэ
-    print(f"BFS time measurement (Edge Array): {measure_bfs(edge_array)}")  # BFS хугацаа
-    print(f"DFS time measurement (Edge Array): {measure_dfs(edge_array)}")  # DFS хугацаа
+    print("\nЦагын хэмжилтүүд:")  
+    print(f"Дараалсан оройн хайлтын хугацаа): {measure_bfs(edge_array)}")
+    print(f"Гүн замын хайлтын хугацаа: {measure_dfs(edge_array)}") 
