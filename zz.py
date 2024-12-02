@@ -2,20 +2,20 @@ import random  # Санамсаргүй тоо үүсгэх модуль
 from collections import deque  # Дараалал хэрэгжүүлэх модуль
 import time  # Цаг хугацаа хэмжих модуль
 
-VERTICES = 500  # Графын оргилуудын тоо
+VERTICES = 500  # Графын оройн тоо
 
-# Графт хоёр оргилын хооронд зах байгаа эсэхийг шалгах функц
+# Графт хоёр оройн хооронд зах байгаа эсэхийг шалгах функц
 def has_edge(edge_array, source, target):
     for edge in edge_array:  # Бүх захыг шалгана
         if (edge[0] == source and edge[1] == target) or (edge[0] == target and edge[1] == source):  # Эсрэг чиглэлтэй захыг мөн шалгана
             return True  # Зах байвал үнэн утга буцаана
     return False  # Зах байхгүй бол худал утга буцаана
 
-# Өргөн хайлт (BFS) алгоритм
+# хайлт (BFS) алгоритм
 def bfs(edge_array, start):
-    visited = [False] * VERTICES  # Орой тус бүрийн айлчлагдсан төлөвийг хадгалах жагсаалт
+    visited = [False] * VERTICES  # Орой тус бүрийн visited төлөвийг хадгалах жагсаалт
     queue = deque([start])  # BFS-ийн дарааллыг эхлүүлнэ
-    visited[start] = True  # Эхлэх оройг айлчилсан гэж тэмдэглэнэ
+    visited[start] = True  # Эхлэх оройг visit гэж тэмдэглэнэ
 
     while queue:  # Дараалал хоосон биш бол
         current = queue.popleft()  # Дарааллын эхний элементийг авна
@@ -38,7 +38,7 @@ def measure_bfs(edge_array):
 
 # Гүнзгий хайлт (DFS) алгоритм
 def dfs(edge_array, current, visited):
-    visited[current] = True  # Одоогийн оройг айлчилсан гэж тэмдэглэнэ
+    visited[current] = True  # Одоогийн оройг visited гэж тэмдэглэнэ
     for edge in edge_array:  # Бүх захыг шалгана
         neighbor = -1  # Хөрш орой хадгалах хувьсагч
         if edge[0] == current:  # Одоогийн оройтой холбогдсон зах байвал
@@ -46,8 +46,8 @@ def dfs(edge_array, current, visited):
         elif edge[1] == current:
             neighbor = edge[0]
         
-        if neighbor != -1 and not visited[neighbor]:  # Хөрш оройг айлчлаагүй бол
-            dfs(edge_array, neighbor, visited)  # Гүнзгий хайлтаар хөрш оройг айлчилна
+        if neighbor != -1 and not visited[neighbor]:  # Хөрш орой visited биш бол
+            dfs(edge_array, neighbor, visited)
 
 # DFS-ийн хугацааг хэмжих функц
 def measure_dfs(edge_array):
@@ -67,7 +67,7 @@ if __name__ == "__main__":
 
     # Графыг санамсаргүй байдлаар үүсгэх
     for i in range(VERTICES):  # Бүх оргилуудад зориулж
-        degree = random.randint(1, 10)  # Оргил тус бүрийн холболтын тоог санамсаргүйгээр үүсгэнэ
+        degree = random.randint(1, 10)  # Орой тус бүрийн холболтын тоог санамсаргүйгээр үүсгэнэ
         for _ in range(degree):  # Холболтуудыг үүсгэнэ
             neighbor = random.randint(0, VERTICES - 1)  # Санамсаргүй хөрш орой сонгоно
             if i != neighbor and not has_edge(edge_array, i, neighbor):  # Өөртэйгөө холбогдохгүй ба давхардсан зах үүсгэхгүй
